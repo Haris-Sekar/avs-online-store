@@ -32,7 +32,7 @@ include('./header_admin_withlogin.php');
 <div class="product_search">
   <form action="" method="POST">
       Products:
-        <select name="product_unit" class="text_feild" id="product_id">
+        <select name="product" class="text_feild" id="product_id">
           <option value="null">Select a product</option>
             <?php 
                 $qurey="SELECT * FROM products;";
@@ -44,11 +44,16 @@ include('./header_admin_withlogin.php');
                     
             <?php }?>
         </select>
-        <button onclick="products()" class="btn-setrates" >View/Set rates</button>
+        <input type="submit" name="submit" value="View/Set rates" class="btn-setrates" >
                   
   </form>
 </div>
-
+<?php 
+if(isset($_POST['submit'])){
+  $id=$_POST['product'];
+  header("location: setrates_products.php?id=$id");
+}
+?>
 
 
 <script>
