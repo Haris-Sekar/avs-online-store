@@ -96,7 +96,7 @@ if (isset($_POST["submit"]))
     $temp_arr = $title.'-'.$_FILES["img"]["name"];
     $pname = $title.'-'.$_FILES["img"]["name"];
     $tname = $_FILES["img"]["tmp_name"];
-    $uploads_dir = 'https://github.com/Haris-Sekar/avs-online-store/assets/images/product_images';
+    $uploads_dir = '../assets/images/product_images';
     move_uploaded_file($tname, $uploads_dir.'/'.$pname);
     $sql = "INSERT INTO `products`(`product_name`, `product_unit`, `product_brand`, `product_group`, `hsn`, `images`,`pcs_per_box`) VALUES('$product_name','$product_unit','$product_brand','$product_group','$product_hsn','$pname','$pcperbox');";
     $result=mysqli_query($conn,$sql);
