@@ -11,7 +11,7 @@ include('./header_admin_withlogin.php');
             <a href="./size_master.php"><li>Size master</li></a><hr>
             <a href="./brand_reg.php"><li>Brand Register</li></a><hr>
             <a href="./item_group.php"><li>Item Group</li></a><hr>
-                <a href="./color_group.php"><li>Color Group</li></a><hr>
+                <a href="./color_grp_file.php"><li>Color Group</li></a><hr>
             <a href="./product_rates.php"><li>Product Rate</li></a><hr>
 
 

@@ -1,5 +1,4 @@
 <?php
-
 include('./header_admin_withlogin.php');
 
 //sql to fetch the already available data
