@@ -50,7 +50,7 @@ if(!$admin_res and !isset($email)){
       <div class="nav">
         <ol>
           <li><a href="./admin_home.php">Home</a></li>
-          <li><a href="./home.php">Orders</a></li>
+          <li><a href="./orders.php">Orders</a></li>
           <li><a href="./products.php">Products</a></li>
           <li><a href="#">Page settings</a></li>
           <li><a href="#">Users</a></li>

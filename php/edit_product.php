@@ -11,6 +11,8 @@ while($row=mysqli_fetch_array($res_product,MYSQLI_ASSOC)){
     $product_group=$row['product_group'];
     $product_hsn=$row['hsn'];
     $product_image=$row['images'];
+    $product_col=$row['color_group'];
+    $box_per_pcs=$row['pcs_per_box'];
 
 }
 
@@ -58,6 +60,22 @@ if(isset($_POST['phsn'])){
         header("Refresh: 0");
     }
 }
+if(isset($_POST['col'])){
+    $product_col=$_POST['c_group'];
+    $sql_update="UPDATE products SET color_group='$product_col' WHERE product_id='$id'";
+    $res_update=mysqli_query($conn,$sql_update);
+    if($res_update){
+        header("Refresh: 0");
+    }
+}
+if(isset($_POST['ppcs'])){
+    $box_per_pcs=$_POST['product_pcs'];
+    $sql_update="UPDATE products SET pcs_per_box='$box_per_pcs' WHERE product_id='$id'";
+    $res_update=mysqli_query($conn,$sql_update);
+    if($res_update){
+        header("Refresh: 0");
+    }
+}
 if (isset($_POST['delete'])) {
     echo "Hi";
     $sql_del="DELETE FROM `products` WHERE product_id='$id'";
@@ -72,7 +90,9 @@ if (isset($_POST['submit'])) {
     $product_brand=$_POST['product_brand'];
     $product_group=$_POST['product_group'];
     $product_hsn=$_POST['product_hsn'];
-    $sql_update_all="UPDATE products SET product_name='$product_name', product_unit='$product_unit',product_brand='$product_brand',product_group='$product_group',hsn='$product_hsn' WHERE product_id='$id'";
+    $product_col=$_POST['c_group'];
+    $box_per_pcs=$_POST['product_pcs'];
+    $sql_update_all="UPDATE products SET product_name='$product_name', product_unit='$product_unit',product_brand='$product_brand',product_group='$product_group',hsn='$product_hsn',pcs_per_box='$box_per_pcs',color_group='$product_col' WHERE product_id='$id' ";
     $res_update_all=mysqli_query($conn,$sql_update_all);
     if($res_update_all  ){
         header("Refresh: 0");
@@ -126,6 +146,18 @@ if (isset($_POST['submit'])) {
 
         </select><input type="submit" value="Update" class="btn-setrates" name="pgroup"><br>
         Product HSN: <input type="text" value="<?php echo $product_hsn;?>" name="product_hsn" class="text_feild"><input type="submit" value="Update" class="btn-setrates" name="phsn"><br>
+        Product Pcs per BOX: <input type="number" value="<?php echo $box_per_pcs;?>" name="product_pcs" class="text_feild"><input type="submit" value="Update" class="btn-setrates" name="ppcs">
+        <br>Color Group:
+        <select name="c_group" class="text_feild">
+        <option value="<?php echo $product_col ;?>"><?php echo $product_col ;?></option>  
+            <?php 
+                $dir="../assets/docs";
+                $myfiles = array_diff(scandir($dir), array('.', '..')); 
+
+                for($i=2;$i<count($myfiles)+2;$i++){ if(pathinfo( $myfiles[$i], PATHINFO_FILENAME)!=$product_col){?>
+                <option value="<?php print_r( pathinfo( $myfiles[$i], PATHINFO_FILENAME)) ;?>"><?php print_r( pathinfo( $myfiles[$i], PATHINFO_FILENAME)) ;?></option>   
+                <?php }}?>
+        </select><input type="submit" value="Update" class="btn-setrates" name="col"><br>
         <input type="submit" value="Delete Product" name="delete" class="btn-setrates1">
         <input type="submit" value="Update All" name="submit" class="btn-setrates">
     </form>

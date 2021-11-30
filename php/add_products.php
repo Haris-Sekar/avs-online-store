@@ -60,7 +60,16 @@ include('./header_admin_withlogin.php');
                     
             <?php }?>   
         </select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Item Per Box<input type="number" name="pc_box" id="" class="text_feild" placeholder="Items Per Box"><br>
-        <br>
+        <br>Color Group:
+        <select name="c_group" class="text_feild">
+            <?php 
+                $dir="../assets/docs";
+                $myfiles = array_diff(scandir($dir), array('.', '..')); 
+
+                for($i=2;$i<count($myfiles)+2;$i++){?>
+                <option value="<?php print_r( pathinfo( $myfiles[$i], PATHINFO_FILENAME)) ;?>"><?php print_r( pathinfo( $myfiles[$i], PATHINFO_FILENAME)) ;?></option>   
+                <?php }?>
+        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Upload Product Images:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="file" id="actual-btn" name="img"  required>
         <br><br><input type="submit" value="Add Product" name="submit"><input type="reset" value="Reset">
         </form>
@@ -92,13 +101,14 @@ if (isset($_POST["submit"]))
      $product_brand=$_POST['product_brand'];
      $product_group=$_POST['product_group'];
      $pcperbox=$_POST['pc_box'];
+     $col_grp=$_POST['c_group'];
      $title = rand(0,100000);
     $temp_arr = $title.'-'.$_FILES["img"]["name"];
     $pname = $title.'-'.$_FILES["img"]["name"];
     $tname = $_FILES["img"]["tmp_name"];
     $uploads_dir = '../assets/images/product_images';
     move_uploaded_file($tname, $uploads_dir.'/'.$pname);
-    $sql = "INSERT INTO `products`(`product_name`, `product_unit`, `product_brand`, `product_group`, `hsn`, `images`,`pcs_per_box`) VALUES('$product_name','$product_unit','$product_brand','$product_group','$product_hsn','$pname','$pcperbox');";
+    $sql = "INSERT INTO `products`(`product_name`, `product_unit`, `product_brand`, `product_group`, `hsn`, `images`,`pcs_per_box`,`color_group`) VALUES('$product_name','$product_unit','$product_brand','$product_group','$product_hsn','$pname','$pcperbox','$col_grp');";
     $result=mysqli_query($conn,$sql);
     if($result){
         ?> <script>alert("Product Added!")</script><?php

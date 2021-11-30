@@ -8,6 +8,7 @@
         $images=$row['images'];
         $product_group=$row['product_group'];
         $per_box=$row['pcs_per_box'];
+        $name=$row['color_group'];
     }
     
     $sql_rates="SELECT * FROM product_rate WHERE product_id='$id'";
@@ -16,6 +17,7 @@
 
     while($row2=mysqli_fetch_array($res_rates,MYSQLI_ASSOC)){
         $rates[$row2['size']]=array(
+            "id"=>$row2['id'],
             "rate"=> $row2['rate'],
             "frate"=>$row2['frame_rate'],
             "discount"=>$row2['discount']   
@@ -62,60 +64,96 @@
                         <div class="formsss">
                         Quantity 
                             <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-                            <input type="number" id="number" value="0" name="box" required onchange="boxconvert()"/>
+                            <input type="number" id="number" value="1" name="box" required onchange="boxconvert()"/>
                             <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
-                            <p id="box">hi</p>
-                        </div>
-                    <?php
-                }
-                    ?>
+                </div>
+                <?php
+                    $filename = "../assets/docs/$name.txt";
+                    $fp = fopen($filename, "r");
+                    $content = fread($fp, filesize($filename));
+                    $lines = explode("\n", $content);
+                    fclose($fp);
+                ?>
+                Color's: <br>
+            <?php 
+                 for ($i=0; $i < count($lines); $i++) { $temp=explode("-",$lines[$i]);?>
+                    <div class="col"  id="col_id" onclick="col()" style="background-color: #<?php echo $temp[0];?>"><?php echo $temp[1];?></div>
+                <?php } ?>
+            
+
+
+
+                        <input type="text" value="<?php print_r($rates[$size]['id']);?>" name="rate_id" hidden>
+                        <input type="text" value="<?php echo $size;?>" name="pr_size" hidden>
         </div>
         <div class="product_book">
             <input type="submit"  name="place_order" value="Buy Now" class="btn_book"><br>
             <input type="submit"  name="cart" value="Add to Cart" class="btn_book">
             
         </div>
-            </form>
+    </form>
+<?php
+                }
+                    ?>
+        
 </div>
 
+<?php
+if(isset($_POST['cart'])){
+    $size= $_POST['pr_size'];
+    $rate_id= $_POST['rate_id'];
+    $quan=$_POST['box'];
+    $sql_cart="INSERT INTO `cart`(`user_id`, `product_id`, `size`, `quatity`, `rate_id`) VALUES('$user_id','$id','$size','$quan','$rate_id')";
+    $res_cart=mysqli_query($conn,$sql_cart);
+    if(mysqli_error($conn)){
+        echo mysqli_error($conn);
+    }
+    else{
+        echo "added";
+    }
+}
 
 
+
+
+?>
 <script>
     function increaseValue() {
   var value = parseInt(document.getElementById('number').value, 10);
-  value = isNaN(value) ? 0 : value;
+  value = isNaN(value) ? 1 : value;
   value++;
   document.getElementById('number').value = value;
 }
 
 function decreaseValue() {
   var value = parseInt(document.getElementById('number').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value < 1 ? value = 1 : '';
-  value--;
+  value = isNaN(value) ? 1 : value;
+  if(value!=1   ){
+      --value;
+  }
   document.getElementById('number').value = value;
 }
-    function increaseValue1() {
-  var value = parseInt(document.getElementById('number1').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  document.getElementById('number1').value = value;
-}
-
-function decreaseValue1() {
-  var value = parseInt(document.getElementById('number1').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value < 1 ? value = 1 : '';
-  value--;
-  document.getElementById('number1').value = value;
-}
+    
 function boxconvert(){
     var value=document.getElementById('number').value;
-    var boxCount=0;
+    var boxCount=1;
     if(value==10){
         document.getElementById('box').innerHTML=boxCount+" boxes"
         boxCount+=boxCount;
     }
 
+}
+
+function col(){
+    var col_name=document.getElementById('col_id').innerText;
+    alert(col_name);
+}
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 </script>

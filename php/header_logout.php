@@ -4,18 +4,35 @@
 include('conn.php');
 session_start();
 if (!isset($_SESSION['email'])) {
+  $email = $_SESSION['email'];
   $_SESSION['msg'] = "You have to log in first";
   header('location: login.php');
-}
-$email = $_SESSION['email'];
-// echo $email;
-$i=0;
+}else{
+  $email = $_SESSION['email'];
+
+   $i=0;
 $sql_image="SELECT * FROM home_cover_images;";
 $res_image=mysqli_query($conn,$sql_image);
 while($row=mysqli_fetch_array($res_image,MYSQLI_ASSOC)){
     $row_img[$i]=$row['image_name'];
     $i++;
   }
+  global $user_id;
+
+  $sql_user="SELECT * FROM `customer_login_details` WHERE email='$email'";
+  $res_user=mysqli_query($conn,$sql_user);
+  while($row_user=mysqli_fetch_array($res_user,MYSQLI_ASSOC)){
+    $user_id=$row_user['id'];
+     }
+
+
+$cart_sql="SELECT COUNT(*) as cart1 FROM cart WHERE user_id='$user_id'";
+$cart_res=mysqli_query($conn,$cart_sql);
+$row3=mysqli_fetch_array($cart_res);
+$cart_no=$row3['cart1'];
+}
+ 
+// echo $email;
 
 ?>
 
@@ -56,6 +73,7 @@ while($row=mysqli_fetch_array($res_image,MYSQLI_ASSOC)){
           <li><a href="./product_display.php">Products</a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
+          <li><a href="./cart.php">Cart(<?php echo $cart_no;?>)</a></li>
           <li><a href="./logout.php">Logout</a></li>
           <li><a href="./user_account.php">My Acount</a></li>
         </ol>
