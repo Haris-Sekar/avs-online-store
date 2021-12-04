@@ -74,7 +74,7 @@
                     $lines = explode("\n", $content);
                     fclose($fp);
                 ?>
-                Color's: <br>
+                Colors: <br>
             <?php 
                  for ($i=0; $i < count($lines); $i++) { $temp=explode("-",$lines[$i]);?>
                     <div class="col"  id="col_id" onclick="col()" style="background-color: #<?php echo $temp[0];?>"><?php echo $temp[1];?></div>
@@ -109,7 +109,7 @@ if(isset($_POST['cart'])){
         echo mysqli_error($conn);
     }
     else{
-        echo "added";
+        header("Refresh: 0");
     }
 }
 
@@ -142,18 +142,5 @@ function boxconvert(){
         boxCount+=boxCount;
     }
 
-}
-
-function col(){
-    var col_name=document.getElementById('col_id').innerText;
-    alert(col_name);
-}
-function componentToHex(c) {
-  var hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
-}
-
-function rgbToHex(r, g, b) {
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 </script>

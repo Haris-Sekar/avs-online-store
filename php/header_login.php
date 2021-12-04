@@ -29,6 +29,8 @@ include('conn.php');
     <title>AVS ENTERPRISES</title>
 </head>
 <body>
+<div class="navv">
+
 <header>
     <ul class="logo">
         <li><img src="../assets/images/avs logo.png" alt="logo" srcset="" class="img-logo"></li>
@@ -45,6 +47,7 @@ include('conn.php');
         </ol>
       </div>
 </header>
+</div>
 
     
 </body>

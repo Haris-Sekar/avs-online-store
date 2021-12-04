@@ -41,6 +41,8 @@ if(!$admin_res and !isset($email)){
     <title>AVS ENTERPRISES</title>
 </head>
 <body>
+<div class="navv">
+
 <header>
     <ul class="logo">
         <li><img src="../assets/images/avs logo.png" alt="logo" srcset="" class="img-logo"></li>
@@ -60,3 +62,4 @@ if(!$admin_res and !isset($email)){
         </ol>
       </div>
 </header>
+</div>
