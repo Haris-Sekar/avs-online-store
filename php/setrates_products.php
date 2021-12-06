@@ -60,7 +60,6 @@ if(isset($_POST['submit'])){
                 <th>Rate</th>
                 <th>Discount</th>
                 <th>Rate after Discount</th>
-                <th>Edit</th>
                 <th>Delete</th>
             </tr>
             <?php while($row_rates=mysqli_fetch_array($res_rates,MYSQLI_ASSOC)){
@@ -71,7 +70,6 @@ if(isset($_POST['submit'])){
                 <td><?php echo $row_rates['frame_rate']; ?></td>
                 <td><?php echo $row_rates['discount']; ?></td>
                 <td><?php echo $row_rates['rate']; ?></td>
-                <td><a href="edit_rate.php?id=<?php echo $row_rates['id'];?>&product=<?php echo $product_id;?>"><img src="../assets/images/edit.png" alt=""></a></td>
                 <td><a href="delete_rates.php?id=<?php echo $row_rates['id'];?>&product=<?php echo $product_id;?>"><img src="../assets/images/delete.png" alt=""></a></td>
             </tr>
             <?php $i++;  } ?>

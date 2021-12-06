@@ -22,36 +22,18 @@ include('./header_admin_withlogin.php');
             <a href="./unit_master.php"> <li>Unit master</li></a><hr>
             <a href="./size_master.php"><li>Size master</li></a><hr>
             <a href="./brand_reg.php"><li>Brand Register</li></a><hr>
-            <a href="./item_group.php"><li>Item Group</li></a><hr>
+            <a href="./item_group_choose.php"><li>Item Group</li></a><hr>
             <a href="./product_rates.php"><li>Product Rate</li></a><hr>
 
 
         </ol>
     </div>
 </div>
-<div class="brandselection">
-    <form action="" method="post">
-        <label>Brand Name:</label>
-        <select name="brand_name" class="text-feild" style="width:205px;">
-            <?php 
-                $qurey="SELECT * FROM brand_register;";
-                $result=mysqli_query($conn,$qurey);
-                while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                    ?>
-                    
-                        <option value="<?php echo $row['brand_name']?>"><?php echo $row['brand_name']?></option>
-                    
-            <?php }?>
-        </select><input type="submit" value="Search" name="search">
-
-    </form>
-</div>
 
 
 <?php 
 
-    if(isset($_POST['search'])){
-        $brand_name=$_POST['brand_name'];
+        $brand_name=$_GET['id'];
         $unit_sql="SELECT * FROM item_group WHERE brand_name='$brand_name'";
         $unit_res=mysqli_query($conn,$unit_sql);
 ?>
@@ -80,12 +62,6 @@ include('./header_admin_withlogin.php');
                 </div>
             </div>
         </div>
-
-
-        <?php
-    }
-?>
-
 
 <?php
 if(isset($_POST['submit'])){

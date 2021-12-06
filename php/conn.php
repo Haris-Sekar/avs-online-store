@@ -7,6 +7,13 @@
 // $password='jmC4ecTwJDAGnw5IsTu8';
 // $database='b4qjlowsvqnxh584yjnm';
 
+//infinty free DB connect Details
+
+// $host='sql111.epizy.com:3306';
+// $username='epiz_28492601';
+// $password='M351OeVmZO';
+// $database='epiz_28492601_avs_enter_online';
+
 // localhost DB connect Details
 
 $host='localhost';

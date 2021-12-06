@@ -35,6 +35,8 @@ while($row=mysqli_fetch_array($res_image,MYSQLI_ASSOC)){
     <title>AVS ENTERPRISES</title>
 </head>
 <body>
+<div class="navv">
+
 <header>
     <ul class="logo">
         <li><img src="./assets/images/avs logo.png" alt="logo" srcset="" class="img-logo"></li>
@@ -51,6 +53,7 @@ while($row=mysqli_fetch_array($res_image,MYSQLI_ASSOC)){
         </ol>
       </div>
 </header>
+</div>
     <div class="body-content">
       <div class="slider">
         <div class="slides">

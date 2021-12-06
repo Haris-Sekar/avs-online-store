@@ -39,6 +39,8 @@ if(!isset($_SESSION['email'])){
     <title>AVS ENTERPRISES</title>
 </head>
 <body>
+<div class="navv">
+
 <header>
     <ul class="logo">
         <li><img src="../assets/images/avs logo.png" alt="logo" srcset="" class="img-logo"></li>
@@ -47,9 +49,9 @@ if(!isset($_SESSION['email'])){
       <input type="checkbox" name="" class="btn" />
       <div class="nav">
         <ol>
-          <li><a href="./home.php">Orders</a></li>
+          <li><a href="./admin_order.php">Orders</a></li>
           <li><a href="./products.php">Products</a></li>
-          <li><a href="#">Page settings</a></li>
+          <li><a href="./page_settings.php">Page settings</a></li>
           <li><a href="#">Users</a></li>
           <li><a href="./user_account.php">My Account</a></li>
           <li><a href="./logout.php">Logout</a></li>
@@ -57,6 +59,7 @@ if(!isset($_SESSION['email'])){
         </ol>
       </div>
 </header>
+</div>
 
 
 <div class="dashboard">

@@ -42,7 +42,6 @@ if(!$admin_res and !isset($email)){
 </head>
 <body>
 <div class="navv">
-
 <header>
     <ul class="logo">
         <li><img src="../assets/images/avs logo.png" alt="logo" srcset="" class="img-logo"></li>
@@ -52,9 +51,9 @@ if(!$admin_res and !isset($email)){
       <div class="nav">
         <ol>
           <li><a href="./admin_home.php">Home</a></li>
-          <li><a href="./orders.php">Orders</a></li>
+          <li><a href="./admin_order.php">Orders</a></li>
           <li><a href="./products.php">Products</a></li>
-          <li><a href="#">Page settings</a></li>
+          <li><a href="./page_settings.php">Page settings</a></li>
           <li><a href="#">Users</a></li>
           <li><a href="./user_account.php">My Account</a></li>
           <li><a href="./logout.php">Logout</a></li>

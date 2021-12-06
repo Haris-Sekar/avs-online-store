@@ -16,9 +16,9 @@ include_once('header_login.php');
         <p class="heading">Login in</p>
         <form action="" method="post">
         <div class="box">
-            <p>Email</p>
+            <p>Email or Phone</p>
             <div>
-                <input type="email" name="email" id="" placeholder="Enter Your Email" autocomplete="off">
+                <input type="text" name="email" id="" placeholder="Enter Your Email or Phone Number" autocomplete="off">
             </div>
         </div>
         <div class="box">
@@ -41,16 +41,18 @@ if(isset($_POST['submit'])){
     $email=$_POST['email'];
     $password=md5($_POST['password']);
     //admin verification
-    $admin_sql="SELECT * FROM admin WHERE email='$email'";
+    $admin_sql="SELECT * FROM admin WHERE email='$email' OR mobile_number='$email'";
     $admin_res=mysqli_query($conn,$admin_sql);
     $admin_row=mysqli_fetch_array($admin_res,MYSQLI_ASSOC);
     $admin_pass=$admin_row['password'];
-    $sql_login="SELECT * FROM customer_login_details WHERE email='$email'";
+    $sql_login="SELECT * FROM customer_login_details WHERE email='$email' OR phone='$email'";
     $res_login=mysqli_query($conn,$sql_login);
     $row=mysqli_fetch_array($res_login,MYSQLI_ASSOC);
     $con_pass=$row['password'];
     if($password==$admin_pass){
         session_start();
+        $email=$admin_row['email'];
+
         $_SESSION['email']=$email;
         $_SESSION['password']=$password;
         $_SESSION['success'] = "You have logged in!";
@@ -58,6 +60,8 @@ if(isset($_POST['submit'])){
     }
     else if($con_pass==$password){
             session_start();
+            $email=$row['email'];
+
             $_SESSION['email']=$email;
             $_SESSION['success'] = "You have logged in!";
             header("location: home.php");        

@@ -23,7 +23,7 @@ if(isset($_GET['id'])){
 
 }
 else{
-    $sql_address1="SELECT * FROM billing_address WHERE user_id='$user_id' AND id=1";
+    $sql_address1="SELECT * FROM billing_address WHERE user_id='$user_id'";
     $res_address1=mysqli_query($conn,$sql_address1);
     $address=mysqli_fetch_array($res_address1);
     $name=$address['name'];
@@ -114,44 +114,29 @@ $cart_res=mysqli_query($conn,$cart_sql);
     if(isset($_POST['submit']))
     {
         echo "hisdf00";
-        while($cart=mysqli_fetch_array($cart_res)){
-            $id=$cart['product_id'];
+        $cart_sql="SELECT * FROM cart WHERE user_id='$user_id'";
+        $cart_res=mysqli_query($conn,$cart_sql);
+        while($cart=mysqli_fetch_array($cart_res,MYSQLI_ASSOC)){
+            $product_id=$cart['product_id'];
             $size=$cart['size'];
             $quantity=$cart['quatity'];
-            $sql_product="SELECT * FROM products WHERE product_id='$id'";
-            $res_product=mysqli_query($conn,$sql_product);
-            while($product=mysqli_fetch_array($res_product)){
-                $product_name=$product['product_name'];
-                $images=$product['images'];
-                $product_group=$product['product_group'];
-                $per_box=$product['pcs_per_box'];
-                $name=$product['color_group'];
-                $brand=$product['product_brand'];
-            }
             $rate_id=$cart['rate_id'];
-            $sql_rates="SELECT * FROM product_rate WHERE id='$rate_id'";
-            $res_rates=mysqli_query($conn,$sql_rates);
-            while($rate1=mysqli_fetch_array($res_rates,MYSQLI_ASSOC)){
-                    $rate=$rate1['rate'];
-                    $frate=$rate1['frame_rate'];
-                    $discount=$rate1['discount'];
-            }  
-            $sql_orders="INSERT INTO `orders`(`user_id`, `product_id`, `rate_id`, `size`, `quantity`, `address_id`, `total_items`, `total_rate`)VALUES('$user_id','$id','$rate_id','$size','$quantity','$address_id','$total_items','$total_amount')";
-            $res_orders=mysqli_query($conn,$sql_orders);
-            if($res_orders)
-            {
-                $sql_cart_delete="DELETE FROM `cart` WHERE `cart`.`user_id` = '$user_id'";
-                $res_cart_delete=mysqli_query($conn,$sql_cart_delete);
-                if($res_cart_delete){
-                    header("location: order_confirmed.php");    
-                }
-                else{
-                    echo mysqli_error($conn);
-                }
-            }
-            else{
+        }
+        $order_sql="INSERT INTO `orders`(`user_id`, `product_id`, `rate_id`, `size`, `quantity`, `address_id`, `total_items`, `total_rate`)VALUES('$user_id','$product_id','$rate_id','$size','$quantity','$address_id','$total_items','$total_amount');";
+        $order_res=mysqli_query($conn,$order_sql);
+        if($order_res){
+
+            $cart_delte_sql="DELETE FROM `cart` WHERE user_id='$user_id'";
+            $cart_delte_res=mysqli_query($conn,$cart_delte_sql);
+
+            if($cart_delte_res){
+                header("location: order_confirmed.php");
+            }else{
                 echo mysqli_error($conn);
             }
-        }
-}
+
+
+            
+        }        
+    }
 ?>

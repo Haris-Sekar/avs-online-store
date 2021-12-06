@@ -2,7 +2,7 @@
 include('./header_logout.php');
 ?>
 <div class="conts">
-    <a href="">
+    <a href="./view_order.php">
         <div class="ins_conts">  
              <img src="../assets/images/box.png" alt=""> <div> Your Orders <br> <p> Track or buy things again</p></div>   
         </div>
